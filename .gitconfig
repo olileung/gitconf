@@ -1,0 +1,30 @@
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	rh = reset --hard
+	co = checkout
+	ins = git pull && npm i && npm up
+	st = status
+	stpk = stash apply 0
+	pl = pull
+	com = commit
+	b = branch
+	pk = cherry-pick
+	cp = cherry-pick
+	f = fetch
+	get = fetch --all
+	pr = fetch -p
+	bl = branch --list
+	sl = stash list
+	ss = stash
+	sa = stash apply
+	sc = stash clear
+	ca = commit --amend
+	com = co
+	com = checkout master
+	cop = checkout -
+	cln = clean -fxd
