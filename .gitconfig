@@ -4,10 +4,20 @@
 	process = git-lfs filter-process
 	required = true
 [alias]
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	# output a pretty log format
+	logpretty = log --color --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\" --abbrev-commit
+
+	# log pretty with depth arguement
+	lg = "!f() { depth=${1-10}; git logpretty -n$depth; }; f"
+
+	# get log by commit - defaults to HEAD
+	lgc = "!f() { commit=${1-HEAD}; git log $commit -n1; }; f";
+
 	rh = reset --hard
 	co = checkout
-	ins = git pull && npm i && npm up
+
+	# install. Call when switching branches to update
+	ins = "!f() {git pull && npm i && npm up}; f"
 	st = status
 	stpk = stash apply 0
 	pl = pull
@@ -28,3 +38,6 @@
 	com = checkout master
 	cop = checkout -
 	cln = clean -fxd -e .idea -e node_modules -e release -e app.log
+
+	# rebase changes from a branch
+	rebaseon = "!f() { target=${1-master}; git com && git pl && git cop && git rebase $target; }; f"
