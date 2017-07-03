@@ -23,10 +23,10 @@
 	getb = rev-parse --abbrev-ref HEAD
 
 	# push the current branch up to the remote
-	pup = "!f() { branch=${1-$(git getb)}; git push origin $branch;}; f"
+	pub = "!f() { branch=${1-$(git getb)}; git push origin $branch;}; f"
 
 	# force push the current branch up - useful after amending commits etc
-	pupf = "!f() { branch=${1-$(git getb)}; git push origin $branch -f;}; f"
+	pubf = "!f() { branch=${1-$(git getb)}; git push origin $branch -f;}; f"
 
 	# diff the cached files
 	difc = "!f() { context=${1-3}; git diff --cached -U$context;}; f"
@@ -34,8 +34,19 @@
 	# diff files
 	dif = "!f() { context=${1-3}; git diff -U$context;}; f"
 
+	# commit with message, goes to edit view
+	cmmt = "!f() { git commit -m \"$1\" -e ;}; f"
+
+	# update the repo (down stream)
+	update = "!f() { git get; git pr;}; f"
+
+	# rebase to squash
+	sq = "!f() { depth=${1-10}; git rebase -i HEAD~$depth; }; f"
+
+	sqr = rebase -i --root 
+
 	st = status
-	stpk = stash apply 0
+	stpk = "!f(){ index=${1-0}; git stash apply $index;}; f"
 	pl = pull
 	com = commit
 	b = branch
