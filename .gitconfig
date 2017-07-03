@@ -27,4 +27,4 @@
 	com = co
 	com = checkout master
 	cop = checkout -
-	cln = clean -fxd
+	cln = clean -fxd -e .idea -e node_modules -e release -e app.log
