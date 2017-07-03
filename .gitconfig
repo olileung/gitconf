@@ -5,7 +5,7 @@
 	required = true
 [alias]
 	# output a pretty log format
-	logpretty = log --color --graph --pretty=format:\"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset\" --abbrev-commit
+	logpretty = log --color --graph --pretty=format:\"%Cred%h%Creset - %<(50,trunc)%s %Cgreen(%cr) %C(bold blue)<%an>%Creset %C(yellow)%D%Creset\" --abbrev-commit
 
 	# log pretty with depth arguement
 	lg = "!f() { depth=${1-10}; git logpretty -n$depth; }; f"
@@ -18,6 +18,22 @@
 
 	# install. Call when switching branches to update
 	ins = "!f() {git pull && npm i && npm up}; f"
+
+	# get the current branch name
+	getb = rev-parse --abbrev-ref HEAD
+
+	# push the current branch up to the remote
+	pup = "!f() { branch=${1-$(git getb)}; git push origin $branch;}; f"
+
+	# force push the current branch up - useful after amending commits etc
+	pupf = "!f() { branch=${1-$(git getb)}; git push origin $branch -f;}; f"
+
+	# diff the cached files
+	difc = "!f() { context=${1-3}; git diff --cached -U$context;}; f"
+
+	# diff files
+	dif = "!f() { context=${1-3}; git diff -U$context;}; f"
+
 	st = status
 	stpk = stash apply 0
 	pl = pull
@@ -40,4 +56,4 @@
 	cln = clean -fxd -e .idea -e node_modules -e release -e app.log
 
 	# rebase changes from a branch
-	rebaseon = "!f() { target=${1-master}; git com && git pl && git cop && git rebase $target; }; f"
+	rbon = "!f() { target=${1-master}; git com && git pl && git cop && git rebase $target; }; f"
