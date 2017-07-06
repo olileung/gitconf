@@ -3,6 +3,8 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[core]
+	excludesfile = C:\\Users\\Oli\\.gitignore
 [alias]
 	# output a pretty log format
 	logpretty = log --color --graph --pretty=format:\"%Cred%h%Creset - %<(50,trunc)%s %Cgreen(%cr) %C(bold blue)<%an>%Creset %C(yellow)%D%Creset\" --abbrev-commit
@@ -18,6 +20,10 @@
 
 	# install. Call when switching branches to update
 	ins = "!f() { git pull; npm i; npm up;}; f"
+
+	# force install; clean and nuke the node mod folder before running ins
+	# this ensures that breaking changes due to deps are taken care of
+	insf = "!f() { git cln; rm ./node_modules -v -f -r; git ins;}; f"
 
 	# get the current branch name
 	getb = rev-parse --abbrev-ref HEAD
@@ -49,7 +55,12 @@
 	stpk = "!f(){ index=${1-0}; git stash apply $index;}; f"
 	pl = pull
 	com = commit
+	# get the local branches
 	b = branch
+	# get all the branches (local and remote)
+	ba = branch -a
+	# get only the remote brances
+	br = branch -r
 	pk = cherry-pick
 	cp = cherry-pick
 	f = fetch
@@ -70,3 +81,4 @@
 	rbon = "!f() { target=${1-master}; git com && git pl && git cop && git rebase $target; }; f"
 
 	savel = "!f() { git add -v -A; git commit --verbose -m 'SAVE-POINT';}; f"
+	saver = "!f() { git savel; git pub;}; f";
