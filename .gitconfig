@@ -11,7 +11,7 @@
 	lg = "!f() { depth=${1-10}; git logpretty -n$depth; }; f"
 
 	# get log by commit - defaults to HEAD
-	lgc = "!f() { commit=${1-HEAD}; git log $commit -n1; }; f";
+	lgc = "!f() { commit=${1-HEAD}; git log $commit -n1 --name-status; }; f";
 
 	rh = reset --hard
 	co = checkout
@@ -68,3 +68,5 @@
 
 	# rebase changes from a branch
 	rbon = "!f() { target=${1-master}; git com && git pl && git cop && git rebase $target; }; f"
+
+	savel = "!f() { git add -v -A; git commit --verbose -m 'SAVE-POINT';}; f"
