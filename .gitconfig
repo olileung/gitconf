@@ -17,6 +17,9 @@
 
 	rh = reset --hard
 	co = checkout
+	
+	# runs checkout `force` (update)
+	cof = "!f() { branch=${1-master}; git co $branch; git insf; }; f"
 
 	# install. Call when switching branches to update
 	ins = "!f() { git pull; npm i; npm up;}; f"
