@@ -59,17 +59,17 @@
 	pl = pull
 	com = commit
 	# get the local branches
-	b = branch
+	b = branch -v
 	# get all the branches (local and remote)
-	ba = branch -a
+	ba = branch -a -v
 	# get only the remote brances
-	br = branch -r
+	br = branch -r -v
 	pk = cherry-pick
 	cp = cherry-pick
 	f = fetch
 	get = fetch --all
 	pr = fetch -p
-	bl = branch --list
+	bl = branch --list -v
 	sl = stash list
 	ss = stash
 	sa = stash apply
