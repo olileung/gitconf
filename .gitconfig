@@ -26,7 +26,7 @@
 
 	# force install; clean and nuke the node mod folder before running ins
 	# this ensures that breaking changes due to deps are taken care of
-	insf = "!f() { git cln; rm ./node_modules -v -f -r; git ins;}; f"
+	insf = "!f() { git cln; rimraf ./node_modules; git ins;}; f"
 
 	# get the current branch name
 	getb = rev-parse --abbrev-ref HEAD
@@ -58,10 +58,13 @@
 	stpk = "!f(){ index=${1-0}; git stash apply $index;}; f"
 	pl = pull
 	com = commit
+	
 	# get the local branches
 	b = branch -v
+	
 	# get all the branches (local and remote)
 	ba = branch -a -v
+	
 	# get only the remote brances
 	br = branch -r -v
 	pk = cherry-pick
@@ -74,7 +77,13 @@
 	ss = stash
 	sa = stash apply
 	sc = stash clear
+	
+	# commit amend
 	ca = commit --amend
+	
+	# commit amend (empty)
+	cae = commit --amend --no-edit
+	
 	com = co
 	com = checkout master
 	cop = checkout -
