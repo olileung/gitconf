@@ -57,6 +57,10 @@
 	st = status
 	stpk = "!f(){ index=${1-0}; git stash apply $index;}; f"
 	pl = pull
+	
+	# pull (rebase)
+	plr = pull --rebase
+	
 	com = commit
 	
 	# get the local branches
