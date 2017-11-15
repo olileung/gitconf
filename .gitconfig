@@ -11,6 +11,9 @@
 
 	# log pretty with depth arguement
 	lg = "!f() { depth=${1-10}; git logpretty -n$depth; }; f"
+	
+	# log from remote
+	lgr = "!f() { depth=${1-10}; git logpretty origin/master -n$depth; }; f"
 
 	# get log by commit - defaults to HEAD
 	lgc = "!f() { commit=${1-HEAD}; git log $commit -n1 --name-status; }; f";
