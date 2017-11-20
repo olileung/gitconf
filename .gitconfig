@@ -99,5 +99,5 @@
 	# rebase changes from a branch
 	rbon = "!f() { target=${1-master}; git com && git pl && git cop && git rebase $target; }; f"
 
-	savel = "!f() { git add -v -A; git commit --verbose -m 'SAVE-POINT';}; f"
+	savel = "!f() { git add -v -A; git commit --verbose -m 'wip';}; f"
 	saver = "!f() { git savel; git pub;}; f";
