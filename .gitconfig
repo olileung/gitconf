@@ -101,3 +101,6 @@
 
 	savel = "!f() { git add -v -A; git commit --verbose -m 'wip';}; f"
 	saver = "!f() { git savel; git pub;}; f";
+	
+	# list the users, email used, and commit count
+	users = shortlog -e -s -n
