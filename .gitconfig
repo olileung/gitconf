@@ -47,7 +47,8 @@
 	dif = "!f() { context=${1-3}; git diff -U$context;}; f"
 
 	# commit with message, goes to edit view
-	cmmt = "!f() { git commit -m \"$1\" -e ;}; f"
+	cmmte = "!f() { git commit -m \"$1\" -e ;}; f"
+	cmmt = "!f() { git commit -m \"$1\" --no-edit;}; f"
 
 	# update the repo (down stream)
 	update = "!f() { git get; git pr;}; f"
