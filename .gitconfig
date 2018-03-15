@@ -46,9 +46,11 @@
 	# diff files
 	dif = "!f() { context=${1-3}; git diff -U$context;}; f"
 
-	# commit with message, goes to edit view
-	cmmte = "!f() { git commit -m \"$1\" -e ;}; f"
-	cmmt = "!f() { git commit -m \"$1\" --no-edit;}; f"
+	# commit with just a title
+	cmt = commit --message 
+
+	# commit with a message and edit
+	cmte = commit -e --message
 
 	# update the repo (down stream)
 	update = "!f() { git get; git pr;}; f"
@@ -105,3 +107,4 @@
 	
 	# list the users, email used, and commit count
 	users = shortlog -e -s -n
+	sts = status -s
