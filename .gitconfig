@@ -69,6 +69,8 @@
 	
 	com = commit
 	
+	ad = add
+	
 	# get the local branches
 	b = branch -v
 	
