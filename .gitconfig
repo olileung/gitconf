@@ -4,7 +4,7 @@
 	process = git-lfs filter-process
 	required = true
 [core]
-	excludesfile = C:\\Users\\Oli\\.gitignore
+	excludesfile = /Users/oli/.gitignore_global
 [alias]
 	# output a pretty log format
 	logpretty = log --color --graph --pretty=format:\"%Cred%h%Creset - %<(50,trunc)%s %Cgreen(%cr) %C(bold blue)<%an>%Creset %C(yellow)%D%Creset\" --abbrev-commit
@@ -90,11 +90,11 @@
 	sa = stash apply
 	sc = stash clear
 	
-	# commit amend
-	ca = commit --amend
+	# commit amend edit
+	cae = commit --amend
 	
-	# commit amend (empty)
-	cae = commit --amend --no-edit
+	# commit amend
+	ca = commit --amend --no-edit
 	
 	com = co
 	com = checkout master
@@ -110,3 +110,14 @@
 	# list the users, email used, and commit count
 	users = shortlog -e -s -n
 	sts = status -s
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[user]
+	name = olileung
+	email = oli.leung@edume.com
+[commit]
+	template = /Users/oli/.stCommitMsg
