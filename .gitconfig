@@ -5,17 +5,22 @@
 	required = true
 [core]
 	excludesfile = /Users/oli/.gitignore_global
+
+# Git alias! 
 [alias]
 	# output a pretty log format
 	logpretty = log --color --graph --pretty=format:\"%Cred%h%Creset - %<(50,trunc)%s %Cgreen(%cr) %C(bold blue)<%an>%Creset %C(yellow)%D%Creset\" --abbrev-commit
 
 	# log pretty with depth arguement
+	#lg = log --color --graph --pretty=format:\"%Cred%h%Creset - %<(50,trunc)%s %Cgreen(%cr) %C(bold blue)<%an>%Creset %C(yellow)%D%Creset\" --abbrev-commit -n10
 	lg = "!f() { depth=${1-10}; git logpretty -n$depth; }; f"
 	
 	# log from remote
-	lgr = "!f() { depth=${1-10}; git logpretty origin/master -n$depth; }; f"
+	#lgr = "!f() { depth=${1-10}; git logpretty origin/master -n$depth; }; f"
+	lgr = "!f() { git lg origin/$(git getb);};f"
 
 	# get log by commit - defaults to HEAD
+	#lgc = log -n1
 	lgc = "!f() { commit=${1-HEAD}; git log $commit -n1 --name-status; }; f";
 
 	rh = reset --hard
@@ -41,9 +46,11 @@
 	pubf = "!f() { branch=${1-$(git getb)}; git push origin $branch -f;}; f"
 
 	# diff the cached files
+	#difc = diff --cached -U0
 	difc = "!f() { context=${1-3}; git diff --cached -U$context;}; f"
 
 	# diff files
+	#dif = diff -U0
 	dif = "!f() { context=${1-3}; git diff -U$context;}; f"
 
 	# commit with just a title
@@ -62,7 +69,10 @@
 
 	st = status
 	stpk = "!f(){ index=${1-0}; git stash apply $index;}; f"
-	pl = pull
+
+	# pull down changes / updates
+	pl = pull -v
+	get = fetch
 	
 	# pull (rebase)
 	plr = pull --rebase
@@ -78,13 +88,16 @@
 	ba = branch -a -v
 	
 	# get only the remote brances
-	br = branch -r -v
-	pk = cherry-pick
+	#br = branch -r -v
+	br = for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/remotes 
+
 	cp = cherry-pick
 	f = fetch
 	get = fetch --all
 	pr = fetch -p
 	bl = branch --list -v
+
+	# stash changes etc
 	sl = stash list
 	ss = stash
 	sa = stash apply
@@ -96,20 +109,34 @@
 	# commit amend
 	ca = commit --amend --no-edit
 	
-	com = co
 	com = checkout master
 	cop = checkout -
-	cln = clean -fxd -e .idea -e node_modules -e release -e app.log
+
+	# clean up
+	#cln = clean -fxd -e .idea -e node_modules -e release -e app.log
+	cln = clean -d -f
 
 	# rebase changes from a branch
+	#rbon = rebase master
 	rbon = "!f() { target=${1-master}; git com && git pl && git cop && git rebase $target; }; f"
 
+	# can't remember what these do? 
 	savel = "!f() { git add -v -A; git commit --verbose -m 'wip';}; f"
 	saver = "!f() { git savel; git pub;}; f";
 	
 	# list the users, email used, and commit count
 	users = shortlog -e -s -n
+
+	# oneline status output
 	sts = status -s
+
+	# show modified files
+	showm = ls-files -m
+
+	# track and untrack files from git
+	stopTrack = update-index --assume-unchanged
+	startTrack = update-index --no-assume-unchanged
+
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
