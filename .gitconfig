@@ -148,3 +148,5 @@
 	email = oli.leung@edume.com
 [commit]
 	template = /Users/oli/.stCommitMsg
+[pull]
+	ff = only
